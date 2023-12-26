@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Reflection;
 
 public class LinqQueries
 {
@@ -80,4 +81,39 @@ public class LinqQueries
         .Take(4)
         .Skip(2);
      }
+
+    public IEnumerable<Book> FirstThreeCollectionBooks()
+    {
+        return booksCollection.Take(3)
+        .Select(i=> new Book() {Title = i.Title, PageCount = i.PageCount});
+    } 
+
+    public int CountBooksBetween200and500()
+    {
+        return booksCollection.Count(i=> i.PageCount >=200 & i.PageCount <= 500);
+    }
+
+    public DateTime MinDateRealeasedBook()
+    {
+        return booksCollection.Min(i=> i.PublishedDate);
+    }
+
+    public int MaxNumberOfPagesBook()
+    {
+        return booksCollection.Max(i=> i.PageCount);
+    }
+
+    public Book BookWithMinAmounttOfPages()
+    {
+        return booksCollection.Where(p=> p.PageCount>0).MinBy(p=> p.PageCount);
+
+    }
+
+    public Book MostRecentBook()
+    {
+        return booksCollection.MaxBy(p=> p.PublishedDate);
+    }
+
+
+
 }

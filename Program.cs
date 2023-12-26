@@ -14,10 +14,10 @@ LinqQueries queries = new LinqQueries();
 //PrintCollection(queries.BooksWithMorethan250Pages());
 
 // All Books With Status
-Console.WriteLine($"All Books With Status?  {queries.AllBookdWithStatus()}");
+//Console.WriteLine($"All Books With Status?  {queries.AllBookdWithStatus()}");
 
 //Any book published in 2005
-Console.WriteLine($"Any Book published in 2005?  {queries.AnyBookpublishedon2005()}");
+//Console.WriteLine($"Any Book published in 2005?  {queries.AnyBookpublishedon2005()}");
 
 
 //Python Books
@@ -34,7 +34,29 @@ Console.WriteLine($"Any Book published in 2005?  {queries.AnyBookpublishedon2005
 //PrintCollection(queries.FristTheeJavaBooksOrederedByDate()); 
 
 //Third and Fourh book with over 400 pages
-PrintCollection(queries.ThirdandAndFourthBookOver400Pages());
+//PrintCollection(queries.ThirdandAndFourthBookOver400Pages());
+
+
+//First three books filtered with Select
+//PrintCollection(queries.FirstThreeCollectionBooks());
+
+//The amout of books between  200 and 500 pages
+//Console.WriteLine($"The amout of books between  200 and 500 pages is: {queries.CountBooksBetween200and500()}");
+
+//Min Date Realeased Book
+//Console.WriteLine($"The earliest book was published in: {queries.MinDateRealeasedBook()}");
+
+//Max number of pages on a book
+//Console.WriteLine($"The Max number of pages on a book is: {queries.MaxNumberOfPagesBook()}");
+
+//Book with min amout of pages
+/*var BookMinPages = queries.BookWithMinAmounttOfPages();
+Console.WriteLine($" The Book with min amout of pages is:{BookMinPages.Title} - With {BookMinPages.PageCount} Pages");
+*/
+
+//Most recent Book
+var RecentBook = queries.MostRecentBook();
+Console.WriteLine($" The mos recent Book is:{RecentBook.Title} - Published On:{RecentBook.PublishedDate.ToShortDateString()}");
 
 void PrintCollection(IEnumerable<Book> booksList)
 {
