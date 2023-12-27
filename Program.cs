@@ -55,8 +55,26 @@ Console.WriteLine($" The Book with min amout of pages is:{BookMinPages.Title} - 
 */
 
 //Most recent Book
-var RecentBook = queries.MostRecentBook();
+/*var RecentBook = queries.MostRecentBook();
 Console.WriteLine($" The mos recent Book is:{RecentBook.Title} - Published On:{RecentBook.PublishedDate.ToShortDateString()}");
+*/
+
+//Console.WriteLine(queries.SumBookPages());
+
+//Console.WriteLine(queries.BookTitlesAfter2015());
+
+///Console.WriteLine(queries.AverageCharactersOnBookTitles());
+
+//PrintGroup(queries.BooksAfter200GroupedByYear()); 
+
+//Book diccionary grouped by letter
+/*var lookUpDiccionary =queries.BookByLeterDictionary();
+PrintDiccionary(lookUpDiccionary, 'P');
+*/
+
+//Books filtered with Join
+PrintCollection(queries.BooksAfter2005WithMoreThan500Pages());
+
 
 void PrintCollection(IEnumerable<Book> booksList)
 {
@@ -65,4 +83,29 @@ void PrintCollection(IEnumerable<Book> booksList)
     {
         Console.WriteLine("{0,-60} {1,15} {2,15}", item.Title, item.PageCount, item.PublishedDate.ToShortDateString());
     }
+}
+
+void PrintGroup(IEnumerable<IGrouping<int, Book>> BookList)
+{
+    foreach(var group  in BookList)
+    {
+        Console.WriteLine("");
+        Console.WriteLine($"Group: {group.Key}");
+        Console.WriteLine("{0,-60} {1, 15} {2, 15}\n", "Title", "# Pages", "Publishing Date");
+
+        foreach(var item in group)
+        {
+            Console.WriteLine("{0,-60} {1, 15} {2, 15}", item.Title, item.PageCount, item.PublishedDate.ToShortDateString());
+        }
+    }
+}
+
+void PrintDiccionary(ILookup<char, Book> BookList, char leter)
+{
+    Console.WriteLine("{0,-60} {1, 15} {2, 15}\n", "Title", "# Pages", "Publishing Date");
+
+        foreach(var item in BookList[leter])
+        {
+            Console.WriteLine("{0,-60} {1, 15} {2, 15}", item.Title, item.PageCount, item.PublishedDate.ToShortDateString());
+        }
 }

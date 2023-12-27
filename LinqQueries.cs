@@ -114,6 +114,61 @@ public class LinqQueries
         return booksCollection.MaxBy(p=> p.PublishedDate);
     }
 
+    public int SumBookPages()
+    {
+        
+        return booksCollection   
+        .Where(p=> p.PageCount >= 0 && p.PageCount <= 500)
+        .Sum(p=> p.PageCount);
+    }
+
+    public string BookTitlesAfter2015()
+    {
+        return booksCollection
+                .Where(p=> p.PublishedDate.Year >= 2015)
+                .Aggregate("", (bookTitles, next) =>
+                {
+                    if(bookTitles != string.Empty)
+                    {
+                        bookTitles += " - " + next.Title;
+                    }
+                    else
+                    {
+                        bookTitles += next.Title;
+                    }
+                    return bookTitles;
+
+                });
+
+    }
+
+    public double AverageCharactersOnBookTitles()
+    {
+        return booksCollection.Average(p=> p.Title.Length);
+    }
+
+    public IEnumerable<IGrouping<int, Book>> BooksAfter200GroupedByYear()
+    {
+        return booksCollection.Where(p=> p.PublishedDate.Year>=2000).GroupBy(p=> p.PublishedDate.Year);
+    }
+
+    public ILookup<char, Book> BookByLeterDictionary()
+    {
+        return booksCollection.ToLookup(p=> p.Title[0], p=> p);
+    }
+
+    public IEnumerable<Book> BooksAfter2005WithMoreThan500Pages()
+    {
+        var BooksAfter2005 = booksCollection.Where(p=> p.PublishedDate.Year > 2005);
+
+        var BooksWithMoreThan500Pages = booksCollection.Where(p=> p.PageCount > 500);
+
+        return BooksAfter2005.Join(BooksWithMoreThan500Pages, p=> p.Title, x=> x.Title, (p,x) => p);
+    }
+
+
+
+
 
 
 }
